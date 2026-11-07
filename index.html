@@ -3,151 +3,180 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MY WEBSITE BUILDER</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#10121a;color:white;font-family:Arial,sans-serif}
-header{background:#191c28;padding:17px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #343849}
-.logo{font-size:19px;font-weight:bold;color:#8b83ff}
-button{border:0;border-radius:8px;padding:11px 14px;background:#7166ef;color:white;font-weight:bold;cursor:pointer;margin:3px}
-button:active{opacity:.7}
-.secondary{background:#292d3b}
-.green{background:#159c68}
-.container{padding:15px;max-width:1100px;margin:auto}
-.welcome{padding:25px 5px}
-.welcome h1{font-size:27px}
-.welcome p{color:#aeb2c5;line-height:1.6}
-.panel{background:#1b1e2b;padding:15px;border-radius:12px;margin:12px 0}
-.tools{display:flex;flex-wrap:wrap;gap:5px}
-.tools button{flex:1;min-width:95px}
-.workspace{background:#292d3a;padding:10px;border-radius:12px;margin-top:15px}
-.toolbar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:5px;margin-bottom:12px}
-.canvas{background:white;color:#222;min-height:420px;border-radius:7px;padding:25px 16px;overflow-wrap:anywhere}
-.canvas h1,.canvas h2,.canvas p,.canvas a{outline:none}
-.canvas [contenteditable=true]:focus{outline:2px dashed #756af0}
-.canvas button{cursor:pointer}
-input{padding:11px;border-radius:7px;border:1px solid #444;background:#111522;color:white;width:100%;margin:7px 0}
-label{font-size:13px;color:#c1c3d2}
-small{color:#aeb2c5}
+body{margin:0;background:#10121b;color:white;font-family:Arial}
+header{padding:18px;background:#1c2030;display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:20px;font-weight:bold;color:#9288ff}
+button{border:0;border-radius:8px;padding:12px;background:#7166ed;color:white;font-weight:bold;margin:3px}
+input{padding:12px;border-radius:8px;border:1px solid #555;background:#171a27;color:white;width:100%;margin:6px 0}
+.container{padding:16px;max-width:900px;margin:auto}
+.panel{background:#1d2130;padding:17px;border-radius:12px;margin:12px 0}
 .hidden{display:none}
-footer{text-align:center;color:#85899c;padding:25px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+.card{background:#292e40;padding:15px;border-radius:10px}
+.canvas{background:white;color:#222;min-height:400px;padding:22px;border-radius:9px;overflow-wrap:anywhere}
+.canvas [contenteditable=true]:focus{outline:2px dashed #7166ed}
+.canvas img{max-width:100%}
+.tools{display:flex;flex-wrap:wrap;gap:5px}
+.tools button{flex:1}
+.green{background:#159d6a}
+small{color:#aaa}
 </style>
 </head>
 <body>
 
 <header>
- <div class="logo">✦ MY BUILDER</div>
- <button class="secondary" onclick="home()">หน้าหลัก</button>
+<div class="logo">✦ MY BUILDER</div>
+<button onclick="showHome()">หน้าหลัก</button>
 </header>
 
-<div class="container" id="home">
- <div class="welcome">
-  <small>YOUR WEBSITE CREATOR</small>
-  <h1>สร้างเว็บไซต์ของคุณเอง</h1>
-  <p>ออกแบบเว็บไซต์ได้ง่าย ๆ ด้วยเครื่องมือสร้างเว็บไซต์ออนไลน์ของเรา ไม่ต้องเขียนโค้ดเอง</p>
-  <button class="green" onclick="createSite()">＋ สร้างเว็บไซต์ใหม่</button>
- </div>
+<main class="container" id="home">
+<h1>สร้างเว็บไซต์ของคุณเอง</h1>
+<p>แพลตฟอร์มสร้างเว็บไซต์ออนไลน์</p>
 
- <div class="panel">
-  <h3>🚀 เริ่มต้นสร้างเว็บไซต์</h3>
-  <p>เลือกเครื่องมือที่ต้องการ แล้วเริ่มออกแบบเว็บไซต์ของคุณได้เลย</p>
-  <div class="tools">
-   <button onclick="createSite()">สร้างเว็บไซต์</button>
-   <button class="secondary" onclick="loadSite()">เปิดงานที่บันทึก</button>
-  </div>
- </div>
-
- <div class="panel">
-  <h3>คุณสามารถทำอะไรได้บ้าง?</h3>
-  <p>✏️ แก้ไขข้อความ</p>
-  <p>🖼️ เพิ่มรูปภาพ</p>
-  <p>🎨 เปลี่ยนสีเว็บไซต์</p>
-  <p>🔘 เพิ่มปุ่มกด</p>
-  <p>🌐 ส่งออกเว็บไซต์</p>
- </div>
+<div class="panel">
+<h3>เว็บไซต์ของฉัน</h3>
+<div id="projects" class="grid"></div>
+<button class="green" onclick="newProject()">＋ สร้างเว็บไซต์ใหม่</button>
 </div>
 
-<div class="container hidden" id="editor">
- <h2>🛠️ เครื่องมือสร้างเว็บไซต์</h2>
- <div class="panel">
-  <label>ชื่อเว็บไซต์</label>
-  <input id="siteName" value="เว็บไซต์ของฉัน" oninput="document.getElementById('siteTitle').textContent=this.value">
-  <label>สีพื้นหลัง</label>
-  <input type="color" id="bg" value="#ffffff" onchange="changeBg()">
- </div>
+<div class="panel">
+<h3>วิธีใช้งาน</h3>
+<p>1. สร้างเว็บไซต์ใหม่</p>
+<p>2. เพิ่มข้อความ รูปภาพ และปุ่ม</p>
+<p>3. แก้ไขหน้าตาเว็บไซต์</p>
+<p>4. บันทึกและส่งออก</p>
+</div>
+</main>
 
- <div class="panel">
-  <h3>เพิ่มองค์ประกอบ</h3>
-  <div class="tools">
-   <button onclick="addBlock('heading')">＋ หัวข้อ</button>
-   <button onclick="addBlock('text')">＋ ข้อความ</button>
-   <button onclick="addBlock('button')">＋ ปุ่ม</button>
-   <button onclick="addBlock('image')">＋ รูปภาพ</button>
-  </div>
-  <small>แตะข้อความบนหน้าตัวอย่างเพื่อแก้ไขได้เลย</small>
- </div>
+<main class="container hidden" id="editor">
+<h2>เครื่องมือแก้ไขเว็บไซต์</h2>
 
- <div class="workspace">
-  <div class="toolbar">
-   <b>ตัวอย่างเว็บไซต์</b>
-   <button class="secondary" onclick="saveSite()">💾 บันทึก</button>
-   <button class="green" onclick="exportSite()">เผยแพร่ / ส่งออก</button>
-  </div>
-  <div class="canvas" id="canvas">
-   <h1 contenteditable="true">ยินดีต้อนรับสู่เว็บไซต์ของฉัน</h1>
-   <p contenteditable="true">นี่คือเว็บไซต์แรกที่ฉันสร้างด้วย MY WEBSITE BUILDER</p>
-   <button onclick="alert('ยินดีต้อนรับ!')">เริ่มต้นใช้งาน</button>
-  </div>
- </div>
- <div class="panel">
-  <button class="secondary" onclick="home()">← กลับหน้าหลัก</button>
-  <button class="secondary" onclick="clearCanvas()">ล้างหน้าเว็บ</button>
- </div>
+<div class="panel">
+<label>ชื่อเว็บไซต์</label>
+<input id="siteName" placeholder="ชื่อเว็บไซต์">
+<label>สีพื้นหลัง</label>
+<input type="color" id="bg" value="#ffffff" onchange="canvas.style.background=this.value">
 </div>
 
-<footer>MY WEBSITE BUILDER © 2026</footer>
+<div class="panel">
+<h3>เพิ่มองค์ประกอบ</h3>
+<div class="tools">
+<button onclick="add('heading')">＋ หัวข้อ</button>
+<button onclick="add('text')">＋ ข้อความ</button>
+<button onclick="add('button')">＋ ปุ่ม</button>
+<button onclick="add('image')">＋ รูปภาพ</button>
+</div>
+</div>
+
+<div class="panel">
+<div style="display:flex;justify-content:space-between;align-items:center">
+<b>ตัวอย่างเว็บไซต์</b>
+<button class="green" onclick="saveProject()">บันทึก</button>
+</div>
+<div class="canvas" id="canvas">
+<h1 contenteditable="true">ยินดีต้อนรับ</h1>
+<p contenteditable="true">นี่คือเว็บไซต์ของฉัน</p>
+</div>
+</div>
+
+<div class="panel">
+<button onclick="exportProject()">ดาวน์โหลดเว็บไซต์</button>
+<button onclick="showHome()">กลับหน้าหลัก</button>
+</div>
+</main>
 
 <script>
-const homePage=document.getElementById('home');
+let projects=JSON.parse(localStorage.getItem('builderProjects')||'[]');
+let current=-1;
+const home=document.getElementById('home');
 const editor=document.getElementById('editor');
 const canvas=document.getElementById('canvas');
+const siteName=document.getElementById('siteName');
 
-function home(){
- homePage.classList.remove('hidden');
- editor.classList.add('hidden');
+function persist(){
+ localStorage.setItem('builderProjects',JSON.stringify(projects));
 }
 
-function createSite(){
- homePage.classList.add('hidden');
+function render(){
+ const box=document.getElementById('projects');
+ box.innerHTML='';
+ projects.forEach((p,i)=>{
+  const card=document.createElement('div');
+  card.className='card';
+  const title=document.createElement('b');
+  title.textContent=p.name;
+  const open=document.createElement('button');
+  open.textContent='เปิดแก้ไข';
+  open.onclick=()=>openProject(i);
+  const del=document.createElement('button');
+  del.textContent='ลบ';
+  del.onclick=()=>{
+   if(confirm('ลบเว็บไซต์นี้?')){
+    projects.splice(i,1);
+    persist();
+    render();
+   }
+  };
+  card.append(title,document.createElement('br'),open,del);
+  box.appendChild(card);
+ });
+}
+
+function showHome(){
+ editor.classList.add('hidden');
+ home.classList.remove('hidden');
+ render();
+}
+
+function newProject(){
+ const name=prompt('ตั้งชื่อเว็บไซต์ของคุณ');
+ if(!name||!name.trim())return;
+ projects.push({
+  name:name.trim(),
+  content:'<h1 contenteditable="true">ยินดีต้อนรับ</h1><p contenteditable="true">นี่คือเว็บไซต์ของฉัน</p>',
+  bg:'#ffffff'
+ });
+ persist();
+ openProject(projects.length-1);
+}
+
+function openProject(i){
+ current=i;
+ const p=projects[i];
+ siteName.value=p.name;
+ canvas.innerHTML=p.content;
+ canvas.style.background=p.bg||'#ffffff';
+ document.getElementById('bg').value=p.bg||'#ffffff';
+ home.classList.add('hidden');
  editor.classList.remove('hidden');
 }
 
-function addBlock(type){
+function add(type){
  let el;
  if(type==='heading'){
   el=document.createElement('h2');
-  el.textContent='หัวข้อใหม่ของฉัน';
+  el.textContent='หัวข้อใหม่';
  }else if(type==='text'){
   el=document.createElement('p');
-  el.textContent='พิมพ์ข้อความของคุณที่นี่';
+  el.textContent='พิมพ์ข้อความของคุณ';
  }else if(type==='button'){
   el=document.createElement('button');
   el.textContent='คลิกที่นี่';
-  el.onclick=()=>alert('ปุ่มของคุณทำงานแล้ว!');
+  el.onclick=()=>alert('ปุ่มทำงานแล้ว');
  }else if(type==='image'){
-  const url=prompt('ใส่ลิงก์รูปภาพ');
+  let url=prompt('ใส่ URL รูปภาพ');
   if(!url)return;
   if(!/^https?:\/\//i.test(url)){
-   alert('กรุณาใส่ลิงก์รูปภาพที่ขึ้นต้นด้วย http หรือ https');
+   alert('กรุณาใส่ URL ที่ขึ้นต้นด้วย http:// หรือ https://');
    return;
   }
   el=document.createElement('img');
   el.src=url;
-  el.style.maxWidth='100%';
-  el.style.display='block';
-  el.style.margin='15px 0';
-  el.alt='รูปภาพเว็บไซต์';
+  el.alt='รูปภาพ';
  }
  if(el){
   if(type==='heading'||type==='text')el.contentEditable='true';
@@ -155,66 +184,31 @@ function addBlock(type){
  }
 }
 
-function changeBg(){
- canvas.style.background=document.getElementById('bg').value;
-}
-
-function clearCanvas(){
- if(confirm('ต้องการล้างหน้าเว็บไซต์ทั้งหมดหรือไม่?')){
-  canvas.innerHTML='';
- }
-}
-
-function saveSite(){
- const data={
-  name:document.getElementById('siteName').value,
+function saveProject(){
+ if(current<0)return;
+ projects[current]={
+  name:siteName.value.trim()||'เว็บไซต์ของฉัน',
   content:canvas.innerHTML,
-  bg:canvas.style.background
+  bg:canvas.style.background||'#ffffff'
  };
- localStorage.setItem('myBuilderProject',JSON.stringify(data));
- alert('บันทึกเว็บไซต์เรียบร้อยแล้ว!');
+ persist();
+ alert('บันทึกเว็บไซต์แล้ว');
 }
 
-function loadSite(){
- const raw=localStorage.getItem('myBuilderProject');
- if(!raw){
-  alert('ยังไม่มีงานที่บันทึกไว้');
-  return;
- }
- try{
-  const data=JSON.parse(raw);
-  document.getElementById('siteName').value=data.name;
-  canvas.innerHTML=data.content;
-  canvas.style.background=data.bg;
-  homePage.classList.add('hidden');
-  editor.classList.remove('hidden');
- }catch(e){
-  alert('ไม่สามารถเปิดงานได้');
- }
-}
-
-function exportSite(){
- const name=document.getElementById('siteName').value||'My Website';
- const html=`<!DOCTYPE html>
-<html lang="th">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>${name.replace(/[<>&"]/g,'')}</title>
-</head>
-<body style="font-family:Arial;padding:25px;background:${canvas.style.background||'#fff'}">
-${canvas.innerHTML}
-</body>
-</html>`;
- const blob=new Blob([html],{type:'text/html'});
+function exportProject(){
+ saveProject();
+ const safeName=(siteName.value||'my-website').replace(/[^\wก-๙-]/g,'-');
+ const doc='<!DOCTYPE html><html lang="th"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>'+safeName+'</title></head><body style="font-family:Arial;padding:20px;background:'+canvas.style.background+'">'+canvas.innerHTML+'</body></html>';
+ const blob=new Blob([doc],{type:'text/html'});
  const url=URL.createObjectURL(blob);
  const a=document.createElement('a');
  a.href=url;
- a.download='my-website.html';
+ a.download=safeName+'.html';
  a.click();
- setTimeout(()=>URL.revokeObjectURL(url),1000);
- alert('สร้างไฟล์เว็บไซต์แล้ว');
+ setTimeout(()=>URL.revokeObjectURL(url),1500);
 }
+
+render();
 </script>
 </body>
 </html>
